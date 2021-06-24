@@ -1,0 +1,52 @@
+---
+
+- name: Dev install
+  hosts: dev
+  become: yes
+  tasks:
+    - name: installation du JDK
+      become: true
+      become_user: root
+      apt:
+        update_cache: yes
+        name: 
+        - git
+        - nano
+        - default-jdk
+        - wget
+    - name: Install MAVEN
+      block:
+      - name: Download Maven
+        unarchive:
+          src: https://downloads.apache.org/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
+          dest: /opt
+          remote_src: yes
+      - name: Create Maven.sh to exporte ENV var
+        lineinfile:
+          dest: /etc/profile.d/maven.sh
+          line: "{{item.line}}"
+          create: yes
+        with_items:
+        - {line: 'export M2_HOME=/opt/apache-maven-3.8.1'}
+        - {line: 'export M2=$M2_HOME/bin'}
+        - {line: 'export PATH=$PATH:$M2'}
+      - name: export MAVEN ENV var
+        shell: ". /etc/profile.d/maven.sh"
+        register: export_check
+#      - name: debug shell
+#        debug:
+#          var: export_check
+
+
+    - name: Create Java.sh to exporte ENV var
+      lineinfile:
+        dest: /etc/profile.d/java.sh
+        line: "{{item.line}}"
+        create: yes
+      with_items:
+        - {line: 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64'}
+        - {line: 'export PATH=$JAVA_HOME/bin:$PATH'}
+    - name: export JAVA ENV var
+      become: true
+      become_user: root
+      shell: ". /etc/profile.d/java.sh"
