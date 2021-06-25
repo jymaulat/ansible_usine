@@ -1,0 +1,7 @@
+---
+- name: install jdk for Debian
+  apt:
+    name:
+    - default-jdk
+    - unzip
+    - git

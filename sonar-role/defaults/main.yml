@@ -1,0 +1,4 @@
+---
+# defaults file for sonar-role
+sonar_version: '8.9.1.44547'
+sonar_default_directory: '/opt'

@@ -1,0 +1,6 @@
+--- 
+- name: installation du JDK
+  yum:
+    name:
+    - java-11-openjdk-devel
+    - git

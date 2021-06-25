@@ -1,7 +1,8 @@
 
 [dev]
-dev01 ansible_host=10.0.0.101
+dev01 ansible_host=10.0.0.101 ansible_user=ubuntu
 dev02 ansible_host=10.0.0.102
 
 [jenkins]
 jenkins ansible_host=10.0.0.20
+

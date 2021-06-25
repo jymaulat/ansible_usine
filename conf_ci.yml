@@ -1,10 +1,12 @@
 ---
-
 - name: CI install
   hosts: jenkins
   become: yes
+  roles:
+  - role: maven-role
+  - role: sonar-role
   tasks:
-  - name : add repo Jenkins
+  - name: add repo Jenkins
     yum_repository:
       name: jenkins
       description: EPEL YUM repo
@@ -35,10 +37,17 @@
     wait_for: timeout=30
     delegate_to: localhost
 
+  - name: "Vérification si le fichier existe"
+    stat:
+      path: /var/lib/jenkins/secrets/initialAdminPassword
+    register: _psswrd_file
+
   - name: init password jenkins
     shell: cat /var/lib/jenkins/secrets/initialAdminPassword
     register: jenkins_password
+    when: _psswrd_file.stat.exists == true
 
   - name: print init password jenkins
     debug:
       var: jenkins_password.stdout
+

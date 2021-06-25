@@ -1,0 +1,13 @@
+---
+# tasks file for sonar-role
+- name: unzip est installe
+  yum:
+    name: unzip
+    state: present
+
+- name: include redhat task
+  include: java.yml
+
+- name: include sonar
+  include: sonar.yml
+

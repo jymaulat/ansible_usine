@@ -1,0 +1,43 @@
+---
+- name: Recuperer SonarQube et SonarScanner
+  unarchive:
+    src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{sonar_version}}.zip
+    dest: "{{sonar_default_directory}}"
+    remote_src: yes
+
+#  - name: lien symbolique /opt/apache-maven vers /opt/apache-maven-3.8.1
+#    file:
+#      src: "{{sonar_default_directory}}/sonarqube-{{sonar_version}}"
+#      dest:" {{sonar_default_directory}}"
+#      state: link
+
+- name: utilisateur sonar
+  user:
+    name: sonar
+    shell: /bin/false
+    create_home: no
+
+- name: Owner sonar
+  file:
+    path: "{{sonar_default_directory}}/sonarqube-{{sonar_version}}"
+    state: directory
+    recurse: yes
+    owner: sonar
+    group: sonar
+
+- name: fichier sonar.service
+  template: 
+    src: templates/sonar.service.j2
+    dest: /etc/systemd/system/sonar.service
+    
+- name:	demarrer ce service
+  systemd:
+    name: sonar
+    daemon_reload: yes
+    state: started
+    enabled: yes
+
+
+
+
+
