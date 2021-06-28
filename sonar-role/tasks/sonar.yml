@@ -5,7 +5,7 @@
     dest: "{{sonar_default_directory}}"
     remote_src: yes
 
-#  - name: lien symbolique /opt/apache-maven vers /opt/apache-maven-3.8.1
+#- name: lien symbolique /opt/apache-maven vers /opt/apache-maven-3.8.1
 #    file:
 #      src: "{{sonar_default_directory}}/sonarqube-{{sonar_version}}"
 #      dest:" {{sonar_default_directory}}"

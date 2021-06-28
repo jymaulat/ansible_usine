@@ -5,7 +5,16 @@
   roles:
   - role: maven-role
   - role: sonar-role
+  - role: artifactory-role
   tasks:
+
+  - name: Installation sonar scanner
+    unarchive:
+      src: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+      dest: "/opt/"
+      remote_src: yes
+    
+
   - name: add repo Jenkins
     yum_repository:
       name: jenkins
@@ -32,6 +41,8 @@
     systemd:
       name: jenkins
       enabled: true
+
+
 
   - name: sleep for 30 seconds and continue with play
     wait_for: timeout=30

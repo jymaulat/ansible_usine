@@ -8,7 +8,7 @@ Type=simple
 User=sonarqube
 Group=sonarqube
 PermissionsStartOnly=true
-ExecStart=/bin/nohup /usr/bin/java -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar {{sonar_default_directory}}/sonarqube/lib/sonar-application-{{sonar_version}}.jar
+ExecStart=/bin/nohup /usr/bin/java -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar {{sonar_default_directory}}/sonarqube-8.9.1.44547/lib/sonar-application-{{sonar_version}}.jar
 StandardOutput=syslog
 LimitNOFILE=131072
 LimitNPROC=8192
