@@ -13,4 +13,6 @@ tomcat ansible_host=10.0.0.254
 [test]
 Test ansible_host=10.0.0.30
 
+[monitoring]
+Test ansible_host=10.0.0.40
 
