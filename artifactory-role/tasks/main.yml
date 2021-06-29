@@ -3,10 +3,10 @@
 - name: Ajout du repo Artifactory JFrog
   yum_repository:
     name: artifactory
-    description: Repo officeil d'artifactory
+    description: Repo officil d'artifactory
     baseurl: https://releases.jfrog.io/artifactory/artifactory-rpms/
-    gpgcheck: no
-    gpgkey: https://releases.jfrog.io/artifactory/artifactory-rpms/repodata/repomd.xml.ey
+    gpgcheck: yes
+    gpgkey: https://releases.jfrog.io/artifactory/artifactory-rpms/repodata/repomd.xml.key
     repo_gpgcheck: yes
 
 - name : Installation Artifactory

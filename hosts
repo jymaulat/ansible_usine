@@ -6,3 +6,11 @@ dev02 ansible_host=10.0.0.102
 [jenkins]
 jenkins ansible_host=10.0.0.20
 
+[tomcat]
+tomcat ansible_host=10.0.0.254
+
+
+[test]
+Test ansible_host=10.0.0.30
+
+

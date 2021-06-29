@@ -1,0 +1,47 @@
+---
+# tasks file for tomcat-role
+- name: Tomcat user
+  user:
+    name: tomcat
+    shell: /bin/false
+    create_home: no
+
+- name: Download Tomcatand unzip
+  unarchive:  
+    src: https://downloads.apache.org/tomcat/tomcat-{{tomcat_major_version}}/v{{tomcat_version}}/bin/apache-tomcat-{{tomcat_version}}.tar.gz
+    dest: "{{install_folder}}"
+    remote_src: yes
+    owner: tomcat
+    group: tomcat
+
+- name: Lien Symbolique
+  file:
+    src: "{{install_folder}}/apache-tomcat-{{tomcat_version}}"
+    path: "{{install_folder}}/tomcat"
+    state: link
+
+- name: Copy Context files
+  copy:
+    src: files/context.xml
+    dest: "{{install_folder}}/{{item}}"
+  loop:
+  - tomcat/webapps/host-manager/META-INF/context.xml
+  - tomcat/webapps/manager/META-INF/context.xml
+
+- name:	Copy Users files
+  copy:
+    src: files/tomcat-users.xml
+    dest: "{{install_folder}}/tomcat/conf/tomcat-users.xml"
+
+- name: Service Tomcat
+  copy:
+    src: files/tomcat.service
+    dest: /etc/systemd/system/tomcat.service
+
+
+- name: Start and enable tomcat
+  systemd:
+    name: tomcat
+    daemon_reload: yes
+    state: restarted
+    enabled: yes

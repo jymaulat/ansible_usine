@@ -1,0 +1,9 @@
+---
+- name: test install
+  hosts: test
+  become: yes
+  roles:
+  - role: docker-role
+    docker_user: vagrant
+
+
